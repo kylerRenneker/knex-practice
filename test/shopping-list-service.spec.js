@@ -7,28 +7,28 @@ describe(`Shopping list service object`, function() {
         {
             id: 1,
             name: 'cream corn',
-            price: 2.50,
+            price: '2.50',
             date_added: new Date(),
             checked: false,
-            category: breakfast
+            category: 'Breakfast'
 
         },
         {
             id: 2,
             name: 'hot dogs',
-            price: 4.50,
+            price: '4.50',
             date_added: new Date(),
             checked: true,
-            category: snack
+            category: 'Snack'
 
         },
         {
             id: 3,
             name: 'Apple pie',
-            price: 12.00,
+            price: '12.00',
             date_added: new Date(),
             checked: true,
-            category: main
+            category: 'Main'
 
         },
     ] 
@@ -63,7 +63,7 @@ describe(`Shopping list service object`, function() {
         })
         it(`getById() resolves an item by id from 'shopping_list' table`, () => {
             const secondId = 2
-            const secondTestItem = testItems[second - 1]
+            const secondTestItem = testItems[secondId - 1]
             return ShoppingListService.getById(db, secondId)
             .then(actual => {
                 expect(actual).to.eql({
@@ -89,16 +89,16 @@ describe(`Shopping list service object`, function() {
             const idOfItemToUpdate = 2
             const newItemData = {
                 name: 'updated name',
-                price: 'updated price',
+                price: '10.55',
                 date_added: new Date(),
-                checked: 'false',
-                category: 'updated category'
+                checked: false,
+                category: 'Lunch'
             }
             return ShoppingListService.updateItem(db, idOfItemToUpdate, newItemData)
                 .then(() => ShoppingListService.getById(db, idOfItemToUpdate))
                 .then(item => {
                     expect(item).to.eql({
-                    id: secondId,
+                    id: idOfItemToUpdate,
                     ...newItemData
                     })
                 })
@@ -114,10 +114,10 @@ describe(`Shopping list service object`, function() {
         it(`insertItem() inserts a new item and resolves the new item with an 'id'`, () => {
             const newItem = {
                 name: 'Test new name',
-                price: 'Test new price',
+                price: '55.55',
                 date_added: new Date(),
-                checked: 'true',
-                category: 'Test new category'
+                checked: false,
+                category: 'Main'
             }
             return ShoppingListService.insertItem(db, newItem)
                 .then(actual => {
